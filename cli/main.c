@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "set_lockscreen_wallpaper.h"
+#include "mtueih/set_lockscreen_wallpaper.h"
 
 int main(int argc, char *argv[]) {
 	if (argc < 2) {
