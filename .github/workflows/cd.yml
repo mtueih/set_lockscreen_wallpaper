@@ -2,62 +2,63 @@ name: CD
 
 on:
   push:
-    tags: [ 'v*' ]
+    tags: ["v*"]
 
 jobs:
   build-windows:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v7
+      - name: Checkout
+        uses: actions/checkout@v7
 
-    - name: Setup MSVC
-      uses: ilammy/msvc-dev-cmd@v1
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Configure CMake
-      run: >
-        cmake . -B build  -G Ninja -DCMAKE_C_COMPILER=cl -DCMAKE_BUILD_TYPE=Release
+      - name: Configure CMake
+        run: >
+          cmake . -B build
+          -G Ninja 
+          -DCMAKE_C_COMPILER=cl 
+          -DCMAKE_BUILD_TYPE=Release
+          -DSET_LOCKSCREEN_WALLPAPER_INSTALL_CLI=ON
+          -DSET_LOCKSCREEN_WALLPAPER_INSTALL_LIB=ON
 
-    - name: CMake Build
-      run: cmake --build build --parallel
+      - name: CMake Build
+        run: cmake --build build --config Release --parallel
 
-    - name: Package artifacts
-      run: |
-        $artifacts = @(
-          "set_lockscreen_wallpaper.exe"
-        )
+      - name: CMake Installation
+        run: >
+          cmake --install build --config Release --strip
+          --prefix set_lockscreen_wallpaper-${{ github.ref_name }}-win64
 
-        mkdir dist
+      - name: Package artifacts
+        run: >
+          cmake -E tar cf set_lockscreen_wallpaper-${{ github.ref_name }}-win64.zip
+          --format=zip set_lockscreen_wallpaper-${{ github.ref_name }}-win64
 
-        foreach ($atf in $artifacts) {
-          Copy-Item .\build\$atf -Destination .\dist
-        }
-
-        Compress-Archive -Path .\dist\* -DestinationPath set_lockscreen_wallpaper-${{ github.ref_name }}.zip
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v7
-      with:
-        name: set_lockscreen_wallpaper-${{ github.ref_name }}
-        path: set_lockscreen_wallpaper-${{ github.ref_name }}.zip
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: set_lockscreen_wallpaper-${{ github.ref_name }}-win64
+          path: set_lockscreen_wallpaper-${{ github.ref_name }}-win64.zip
 
   release:
-    needs: [ build-windows ]
+    needs: [build-windows]
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-    - name: Download all artifacts
-      uses: actions/download-artifact@v7
-      with:
-        path: artifacts
+      - name: Download all artifacts
+        uses: actions/download-artifact@v7
+        with:
+          path: artifacts
 
-    - name: Create Release and Upload Assets
-      uses: softprops/action-gh-release@v3
-      with:
-        files: artifacts/**/*.zip
-        generate_release_notes: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release and Upload Assets
+        uses: softprops/action-gh-release@v3
+        with:
+          files: artifacts/**/*.zip
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

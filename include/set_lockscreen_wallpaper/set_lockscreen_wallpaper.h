@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 #ifdef __cplusplus
-namespace mtueih
+namespace set_lockscreen_wallpaper
 {
 	extern "C"
 	{

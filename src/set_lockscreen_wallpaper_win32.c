@@ -1,4 +1,4 @@
-#include "mtueih/set_lockscreen_wallpaper.h"
+#include "set_lockscreen_wallpaper/set_lockscreen_wallpaper.h"
 #include <stdlib.h>
 #include <string.h>
 
