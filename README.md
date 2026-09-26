@@ -41,7 +41,7 @@ bool set_lockscreen_wallpaper(const char *image_file_path);
 
 参数：
 
-- `image_file_path`：包含目标图片路径的单个字符串（应使用系统代码页编码）。
+- `image_file_path`：包含目标图片路径（不支持相对路径）的单个字符串（应使用系统代码页编码）。
 
 返回值：
 

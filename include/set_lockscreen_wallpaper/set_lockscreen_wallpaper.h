@@ -14,7 +14,7 @@ namespace set_lockscreen_wallpaper
 		 * @brief 设置锁屏壁纸（单张图片）。
 		 *
 		 * @param[in] image_file_path
-		 * 目标图片文件路径（const char * 类型字符串，应使用系统代码页编码）。
+		 * 包含目标图片路径（不支持相对路径）的单个字符串（应使用系统代码页编码）。
 		 *
 		 * @return
 		 * 是否设置成功，设置成功返回 true，否则返回 false。
