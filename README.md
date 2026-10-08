@@ -39,7 +39,7 @@ bool set_lockscreen_wallpaper(const char *image_file_path);
 
 参数：
 
-- `image_file_path`：包含目标图片路径（不支持相对路径）的单个字符串（应使用系统代码页编码）。
+- `image_file_path`：目标图片路径（不支持相对路径）。应使用系统代码页编码。
 
 返回值：
 
@@ -81,7 +81,7 @@ target_link_libraries(your_target PRIVATE set_lockscreen_wallpaper::set_lockscre
 
 #### 引入头文件
 
-```cpp
+```c
 #include <set_lockscreen_wallpaper/set_lockscreen_wallpaper.h>
 ```
 
@@ -91,12 +91,6 @@ target_link_libraries(your_target PRIVATE set_lockscreen_wallpaper::set_lockscre
 
 ```c
 set_lockscreen_wallpaper("C:\\Users\\mtueih\\Pictures\\wallhaven-e82xxr.jpg");
-```
-
-在 C++ 代码中：
-
-```cpp
-set_lockscreen_wallpaper::set_lockscreen_wallpaper("C:\\Users\\mtueih\\Pictures\\wallhaven-e82xxr.jpg");
 ```
 
 ## 从源码构建

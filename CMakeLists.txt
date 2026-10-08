@@ -35,8 +35,6 @@ target_sources(${MAIN_LIB_TARGET_NAME} PUBLIC
     BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include
     FILES include/${MAIN_PACKAGE_NAME}/${MAIN_LIB_TARGET_NAME}.h)
 
-target_compile_definitions(${MAIN_LIB_TARGET_NAME} PRIVATE $<$<CONFIG:Debug>:DEBUG>)
-
 
 # cli.
 set(CLI_NAMES ${PROJECT_NAME})
