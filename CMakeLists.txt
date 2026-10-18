@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 project(set_lockscreen_wallpaper VERSION 0.2.0 LANGUAGES C)
 
 if(NOT CMAKE_C_STANDARD)
-    set(CMAKE_C_STANDARD 99)
+	set(CMAKE_C_STANDARD 99)
 endif()
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
@@ -19,74 +19,74 @@ set(MAIN_LIB_SOURCE_LIST)
 set(MAIN_PACKAGE_NAME ${PROJECT_NAME})
 
 if(WIN32)
-    list(APPEND MAIN_LIB_SOURCE_LIST src/${MAIN_LIB_TARGET_NAME}_win32.c)
+	list(APPEND MAIN_LIB_SOURCE_LIST src/${MAIN_LIB_TARGET_NAME}_win32.c)
 else()
-    message(FATAL_ERROR
-        "Unsupported platform: ${CMAKE_SYSTEM_NAME}.\n"
-        "Supported: Windows.")
+	message(FATAL_ERROR
+		"Unsupported platform: ${CMAKE_SYSTEM_NAME}.\n"
+		"Supported: Windows.")
 endif()
 
 add_library(${MAIN_LIB_TARGET_NAME} STATIC ${MAIN_LIB_SOURCE_LIST})
 add_library(${MAIN_PACKAGE_NAME}::${MAIN_LIB_TARGET_NAME} ALIAS ${MAIN_LIB_TARGET_NAME})
 
 target_sources(${MAIN_LIB_TARGET_NAME} PUBLIC
-    FILE_SET ${MAIN_LIB_TARGET_NAME}_public_headers
-    TYPE HEADERS
-    BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include
-    FILES include/${MAIN_PACKAGE_NAME}/${MAIN_LIB_TARGET_NAME}.h)
+	FILE_SET ${MAIN_LIB_TARGET_NAME}_public_headers
+	TYPE HEADERS
+	BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include
+	FILES include/${MAIN_PACKAGE_NAME}/${MAIN_LIB_TARGET_NAME}.h)
 
 
 # cli.
 set(CLI_NAMES ${PROJECT_NAME})
 
 if(SET_LOCKSCREEN_WALLPAPER_BUILD_CLI)
-    foreach(CLI_NAME ${CLI_NAMES})
-        set(CLI_TARGET_NAME cli_${CLI_NAME})
+	foreach(CLI_NAME ${CLI_NAMES})
+		set(CLI_TARGET_NAME cli_${CLI_NAME})
 
-        add_executable(${CLI_TARGET_NAME} cli/${CLI_NAME}.c)
-        set_target_properties(${CLI_TARGET_NAME} PROPERTIES OUTPUT_NAME ${CLI_NAME})
+		add_executable(${CLI_TARGET_NAME} cli/${CLI_NAME}.c)
+		set_target_properties(${CLI_TARGET_NAME} PROPERTIES OUTPUT_NAME ${CLI_NAME})
 
-        target_link_libraries(${CLI_TARGET_NAME} PRIVATE ${MAIN_LIB_TARGET_NAME})
-    endforeach()
+		target_link_libraries(${CLI_TARGET_NAME} PRIVATE ${MAIN_LIB_TARGET_NAME})
+	endforeach()
 endif()
 
 
 #cli installation.
 if(SET_LOCKSCREEN_WALLPAPER_INSTALL_CLI)
-    foreach(CLI_NAME ${CLI_NAMES})
-        install(TARGETS cli_${CLI_NAME} EXPORT ${MAIN_PACKAGE_NAME}Targets)
-    endforeach()
+	foreach(CLI_NAME ${CLI_NAMES})
+		install(TARGETS cli_${CLI_NAME} EXPORT ${MAIN_PACKAGE_NAME}Targets)
+	endforeach()
 endif()
 
 
 #lib installation.
 if(SET_LOCKSCREEN_WALLPAPER_INSTALL_LIB)
-    install(TARGETS ${MAIN_LIB_TARGET_NAME}
-        EXPORT ${MAIN_PACKAGE_NAME}Targets
-        FILE_SET ${MAIN_LIB_TARGET_NAME}_public_headers DESTINATION include)
+	install(TARGETS ${MAIN_LIB_TARGET_NAME}
+		EXPORT ${MAIN_PACKAGE_NAME}Targets
+		FILE_SET ${MAIN_LIB_TARGET_NAME}_public_headers DESTINATION include)
 endif()
 
 
 #package-related files installation.
 if(SET_LOCKSCREEN_WALLPAPER_INSTALL_LIB)
-    include(CMakePackageConfigHelpers)
+	include(CMakePackageConfigHelpers)
 
-    install(EXPORT ${MAIN_PACKAGE_NAME}Targets
-        DESTINATION lib/cmake/${MAIN_PACKAGE_NAME}
-        NAMESPACE ${MAIN_PACKAGE_NAME}::)
+	install(EXPORT ${MAIN_PACKAGE_NAME}Targets
+		DESTINATION lib/cmake/${MAIN_PACKAGE_NAME}
+		NAMESPACE ${MAIN_PACKAGE_NAME}::)
 
-    configure_package_config_file(
-        cmake/${MAIN_PACKAGE_NAME}Config.cmake.in
-        ${MAIN_PACKAGE_NAME}Config.cmake
-        INSTALL_DESTINATION lib/cmake/${MAIN_PACKAGE_NAME})
+	configure_package_config_file(
+		cmake/${MAIN_PACKAGE_NAME}Config.cmake.in
+		${MAIN_PACKAGE_NAME}Config.cmake
+		INSTALL_DESTINATION lib/cmake/${MAIN_PACKAGE_NAME})
 
-    write_basic_package_version_file(
-        ${MAIN_PACKAGE_NAME}ConfigVersion.cmake
-        VERSION ${PROJECT_VERSION}
-        COMPATIBILITY SameMajorVersion)
+	write_basic_package_version_file(
+		${MAIN_PACKAGE_NAME}ConfigVersion.cmake
+		VERSION ${PROJECT_VERSION}
+		COMPATIBILITY SameMajorVersion)
 
-    install(FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/${MAIN_PACKAGE_NAME}Config.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/${MAIN_PACKAGE_NAME}ConfigVersion.cmake
-        DESTINATION lib/cmake/${MAIN_PACKAGE_NAME})
+	install(FILES
+		${CMAKE_CURRENT_BINARY_DIR}/${MAIN_PACKAGE_NAME}Config.cmake
+		${CMAKE_CURRENT_BINARY_DIR}/${MAIN_PACKAGE_NAME}ConfigVersion.cmake
+		DESTINATION lib/cmake/${MAIN_PACKAGE_NAME})
 endif()
