@@ -7,7 +7,7 @@
 [![CI](https://github.com/mtueih/set_lockscreen_wallpaper/actions/workflows/ci.yml/badge.svg)](https://github.com/mtueih/set_lockscreen_wallpaper/actions/workflows/ci.yml)
 [![CD](https://github.com/mtueih/set_lockscreen_wallpaper/actions/workflows/cd.yml/badge.svg)](https://github.com/mtueih/set_lockscreen_wallpaper/actions/workflows/cd.yml)
 
-一个用于设置系统锁屏壁纸的轻量级 C 库。
+一个用于设置系统锁屏壁纸的轻量级 C 库及命令行工具。
 
 目前只支持 Windows 平台。
 
@@ -21,7 +21,7 @@
 
 ### 参数说明
 
-`image_file_path` 是包含目标图片路径（不支持相对路径）的单个字符串。
+`image_file_path`：目标图片路径（不支持相对路径）。
 
 ### 行为说明
 
@@ -61,7 +61,7 @@ include(${PROJECT_SOURCE_DIR}/cmake/CPM.cmake)
 CPMAddPackage("gh:mtueih/set_lockscreen_wallpaper#v0.2.0")
 ```
 
-#### CMake find_package（需已安装）
+#### CMake `find_package`（需已安装）
 
 在 `CMakeLists.txt` 中：
 
@@ -90,7 +90,17 @@ target_link_libraries(your_target PRIVATE set_lockscreen_wallpaper::set_lockscre
 在 C 代码中：
 
 ```c
-set_lockscreen_wallpaper("C:\\Users\\mtueih\\Pictures\\wallhaven-e82xxr.jpg");
+if (!set_lockscreen_wallpaper("C:\\Users\\mtueih\\Pictures\\wallhaven-e82xxr.jpg")) {
+    /* 处理失败。 */
+}
+```
+
+在 C++ 代码中：
+
+```cpp
+if (!set_lockscreen_wallpaper::set_lockscreen_wallpaper("C:\\Users\\mtueih\\Pictures\\wallhaven-e82xxr.jpg")) {
+    /* 处理失败。 */
+}
 ```
 
 ## 从源码构建
@@ -98,7 +108,7 @@ set_lockscreen_wallpaper("C:\\Users\\mtueih\\Pictures\\wallhaven-e82xxr.jpg");
 ### 环境要求
 
 - [CMake](https://cmake.org/) 3.24+。
-- 支持 [C99](https://zh.cppreference.com/c/99)+ 的 [C 编译器](https://zh.cppreference.com/c/compiler_support)（MSVC / MinGW-w64 / Clang）。
+- 支持 [C99](https://zh.cppreference.com/c/99)+ 的 [C 编译器](https://zh.cppreference.com/c/compiler_support)（MSVC / GCC / Clang）。
 
 ### 构建步骤
 
