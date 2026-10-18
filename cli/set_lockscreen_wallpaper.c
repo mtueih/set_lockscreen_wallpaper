@@ -1,10 +1,11 @@
 #include "set_lockscreen_wallpaper/set_lockscreen_wallpaper.h"
+
 #include <stdio.h>
 
 
 int main(int argc, char *argv[]) {
 	if (argc < 2) {
-		fprintf(stderr, "Usage: %s <image_file_path>\n", argv[0]);
+		fprintf(stderr, "Usage: %s <image_file_path>\n", CLI_NAME);
 		return 1;
 	}
 

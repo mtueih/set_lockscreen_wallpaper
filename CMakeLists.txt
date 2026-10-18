@@ -47,6 +47,8 @@ if(SET_LOCKSCREEN_WALLPAPER_BUILD_CLI)
 		set_target_properties(${CLI_TARGET_NAME} PROPERTIES OUTPUT_NAME ${CLI_NAME})
 
 		target_link_libraries(${CLI_TARGET_NAME} PRIVATE ${MAIN_LIB_TARGET_NAME})
+		target_compile_definitions(${CLI_TARGET_NAME} PRIVATE
+			CLI_NAME="${CLI_NAME}")
 	endforeach()
 endif()
 
