@@ -108,7 +108,8 @@ if (!set_lockscreen_wallpaper::set_lockscreen_wallpaper("C:\\Users\\mtueih\\Pict
 ### 环境要求
 
 - [CMake](https://cmake.org/) 3.24+。
-- 支持 [C99](https://zh.cppreference.com/c/99)+ 的 [C 编译器](https://zh.cppreference.com/c/compiler_support)（MSVC / GCC / Clang）。
+- 支持 [C99](https://zh.cppreference.com/c/99)+
+  的 [C 编译器](https://zh.cppreference.com/c/compiler_support)（MSVC / GCC / Clang）。
 
 ### 构建步骤
 
@@ -129,8 +130,10 @@ cmake --install build --config Release --strip --prefix install
 
 有关上述命令的说明：
 
-- 配置命令。通过 `-DSET_LOCKSCREEN_WALLPAPER_INSTALL_LIB=ON` 与 `-DSET_LOCKSCREEN_WALLPAPER_INSTALL_CLI=ON` 分别启用了库与 CLI 工具的安装，你可以按需安装，如果不需要安装某一个，将对应选项删除即可。
-- 安装命令。通过 `--prefix install` 将产物安装在了 `install` 目录下，而不是全局安装，以便你按自己的方式使用安装产物。如果你希望全局安装，则删除它即可。
+- 配置命令。通过 `-DSET_LOCKSCREEN_WALLPAPER_INSTALL_LIB=ON` 与
+  `-DSET_LOCKSCREEN_WALLPAPER_INSTALL_CLI=ON` 分别启用了库与 CLI 工具的安装，你可以按需安装，如果不需要安装某一个，将对应选项删除即可。
+- 安装命令。通过 `--prefix install` 将产物安装在了 `install`
+  目录下，而不是全局安装，以便你按自己的方式使用安装产物。如果你希望全局安装，则删除它即可。
 
 ## 许可协议
 
