@@ -1,4 +1,5 @@
 #include "set_lockscreen_wallpaper/set_lockscreen_wallpaper.h"
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,19 +14,20 @@
 
 #endif
 
+
 /* 设置锁屏壁纸（单张图片）。 */
 bool set_lockscreen_wallpaper(const char *const image_file_path) {
 	static const char cmd_prefix[] =
 		"reg add "
-		"\"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization\" "
-		"/v LockScreenImage /t REG_SZ /d \"";
+		"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization "
+		"/v LockScreenImage /d \"";
 	static const char cmd_suffix[] = "\" /f";
 	const size_t image_file_path_len = strlen(image_file_path);
 
 	char *const cmd = malloc(sizeof(cmd_prefix) + sizeof(cmd_suffix) + image_file_path_len + 1);
 	if (cmd == NULL) {
 #ifndef NDEBUG
-		PUT_ERR("malloc() failed.");
+		PUT_ERR("malloc() for command string failed.");
 #endif
 		return false;
 	}
