@@ -58,7 +58,7 @@ bool set_lockscreen_wallpaper(const char *image_file_path);
 ```cmake
 include(${PROJECT_SOURCE_DIR}/cmake/CPM.cmake)
 
-CPMAddPackage("gh:mtueih/set_lockscreen_wallpaper#v0.3.0")
+CPMAddPackage("gh:mtueih/set_lockscreen_wallpaper#v0.3.1")
 ```
 
 #### CMake `find_package`（需已安装）
@@ -116,7 +116,7 @@ if (!set_lockscreen_wallpaper::set_lockscreen_wallpaper("C:\\Users\\mtueih\\Pict
 #### 克隆仓库
 
 ```bash
-git clone https://github.com/mtueih/set_lockscreen_wallpaper.git --depth 1 -b v0.3.0
+git clone https://github.com/mtueih/set_lockscreen_wallpaper.git --depth 1 -b v0.3.1
 cd set_lockscreen_wallpaper
 ```
 

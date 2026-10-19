@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(set_lockscreen_wallpaper VERSION 0.3.0 LANGUAGES C)
+project(set_lockscreen_wallpaper VERSION 0.3.1 LANGUAGES C)
 
 if(NOT CMAKE_C_STANDARD)
 	set(CMAKE_C_STANDARD 99)
