@@ -24,7 +24,9 @@ bool set_lockscreen_wallpaper(const char *const image_file_path) {
 	static const char cmd_suffix[] = "\" /f";
 	const size_t image_file_path_len = strlen(image_file_path);
 
-	char *const cmd = malloc(sizeof(cmd_prefix) + sizeof(cmd_suffix) + image_file_path_len + 1);
+	char *const cmd = malloc(
+		image_file_path_len + sizeof(cmd_prefix) + sizeof(cmd_suffix) - 1
+	);
 	if (cmd == NULL) {
 #ifndef NDEBUG
 		PUT_ERR("malloc() for command string failed.");
